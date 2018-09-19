@@ -9,7 +9,22 @@
 </head>
 
 <body>
-	<input type="text">
+
+	<h1>Time to do some simple math!</h1>
+	<p>Please remember to separate everything out with a space.</p>
+
+	<input id="equation" type="text" placeholder="Enter Equation Here...">
+	<button type="button" onclick="calculate()">Enter</button>
+
+	<br><br>
+	<p id="answer"></p>
 </body>
+<script>
+	function calculate() {
+		let equation = document.getElementById('equation').value;
+
+		document.getElementById('answer').textContent = `${equation} = ${eval(equation)}`;
+	}
+</script>
 
 </html>

@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as session from 'express-session';
-import * as fs from 'fs';
 
 const app = express();
 const PORT = 3000;

@@ -2,9 +2,17 @@
 	"compilerOptions": {
 		"outDir": "./dist",
 		"allowJs": true,
-		"target": "es6"
+		"target": "es5",
+		"lib": [
+			"es2017",
+			"dom"
+		]
 	},
 	"include": [
 		"./src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
 	]
 }
