@@ -1,0 +1,33 @@
+{
+	"name": "outward",
+	"version": "1.0.0",
+	"description": "Outward code challenge for Tom Gariepy",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon .",
+		"serve": "ts-node ./src/index.ts",
+		"build": "tsc",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gariepyt/outward-challenge.git"
+	},
+	"author": "Tom Gariepy <tom@tecdevs.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/gariepyt/outward-challenge/issues"
+	},
+	"homepage": "https://github.com/gariepyt/outward-challenge#readme",
+	"dependencies": {
+		"@types/express": "^4.16.0",
+		"@types/express-session": "^1.15.11",
+		"express": "^4.16.3",
+		"express-session": "^1.15.6"
+	},
+	"devDependencies": {
+		"nodemon": "^1.18.4",
+		"ts-node": "^7.0.1",
+		"typescript": "^3.0.3"
+	}
+}
