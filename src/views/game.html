@@ -6,10 +6,126 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Game</title>
+
+	<script src="https://cdn.babylonjs.com/babylon.js"></script>
 </head>
 
 <body>
-	You are at the game!
+	<canvas></canvas>
 </body>
+
+<style>
+	html,
+	body {
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	canvas {
+		width: 100%;
+		height: 100%;
+		background: green;
+	}
+</style>
+
+<script>
+	let canvas = document.getElementsByTagName('canvas')[0];
+
+	let engine = new BABYLON.Engine(canvas, true);
+
+	let scene = new BABYLON.Scene(engine);
+	scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+	scene.collisionsEnabled = true;
+	scene.clearColor = new BABYLON.Color3.Black();
+
+	let user = BABYLON.Mesh.CreateBox('box', 1, scene);
+
+	let userMaterial = new BABYLON.StandardMaterial('userMaterial', scene);
+	userMaterial.diffuseColor = new BABYLON.Color3.Green();
+
+	user.material = userMaterial;
+	user.position.y = .51;
+
+	let camera = new BABYLON.ArcRotateCamera('Camera', Math.PI, 3 * Math.PI / 8, 15, user, scene);
+	camera.attachControl(canvas, true, false);
+
+	let hemi = new BABYLON.HemisphericLight('hemi', new BABYLON.Vector3(0, 1, 0), scene);
+	diffuse = new BABYLON.Color3(1, 1, 1);
+	hemi.specular = new BABYLON.Color3(0, 0, 0);
+	hemi.groundColor = new BABYLON.Color3(0, 0, 0);
+	hemi.intensity = .25;
+
+	let light = new BABYLON.PointLight('light', new BABYLON.Vector3(2, 1, 2), scene);
+
+	let ground = BABYLON.MeshBuilder.CreateGround('ground', {
+		height: 10,
+		width: 10,
+		subdivisions: 4
+	}, scene);
+	ground.rotation.y = Math.PI / 2;
+
+	let groundMaterial = new BABYLON.StandardMaterial('groundMaterial', scene);
+
+	groundMaterial.diffuseTexture = new BABYLON.Texture(
+		'https://yt3.ggpht.com/a-/AN66SAy6GVR9FKfi5C_qKDZkFSCyDIoxrhCeeWf-bQ=s900-mo-c-c0xffffffff-rj-k-no',
+		scene);
+
+	ground.material = groundMaterial;
+
+	document.addEventListener('resize', () => {
+		engine.resize();
+	});
+
+	engine.runRenderLoop(() => {
+		let speed = .1;
+		let max = 5 - .51;
+		if (user.moveForward && user.position.x < max) {
+			user.position.x += speed;
+		}
+		if (user.moveLeft && user.position.z < max) {
+			user.position.z += speed;
+		}
+		if (user.moveBackward && user.position.x > max * -1) {
+			user.position.x -= speed;
+		}
+		if (user.moveRight && user.position.z > max * -1) {
+			user.position.z -= speed;
+		}
+
+		scene.render();
+
+	});
+
+	BABYLON.Tools.RegisterTopRootEvents([{
+		name: 'keydown',
+		handler: (event) => {
+			if (event.keyCode === 87) {
+				user.moveForward = true;
+			} else if (event.keyCode === 65) {
+				user.moveLeft = true;
+			} else if (event.keyCode === 83) {
+				user.moveBackward = true;
+			} else if (event.keyCode === 68) {
+				user.moveRight = true;
+			}
+		}
+	}, {
+		name: 'keyup',
+		handler: (event) => {
+			if (event.keyCode === 87) {
+				user.moveForward = false;
+			} else if (event.keyCode === 65) {
+				user.moveLeft = false;
+			} else if (event.keyCode === 83) {
+				user.moveBackward = false;
+			} else if (event.keyCode === 68) {
+				user.moveRight = false;
+			}
+		}
+	}]);
+</script>
 
 </html>
